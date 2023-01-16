@@ -22,7 +22,7 @@ class HomePageComponent extends WFMComponent {
     // event.preventDefault()
     // router.navigate('tabs')
     //http.get('https://jsonplaceholder.typicode.com/todos/1')
-    console.log(http.get('https://jsonplaceholder.typicode.com/todos/1'))
+    http.post('https://jsonplaceholder.typicode.com/todos/1').then(data => console.log(data))
   }
 }
 
@@ -38,7 +38,7 @@ export const homePageComponent = new HomePageComponent({
         <input placeholder="ID дилера" id="dealer_id" type="text" class="validate">
       </div>
       <div class="card-action">
-        <a class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>Выполнить</a>
+        <a class="waves-effect waves-light btn"><i class="material-icons left">book</i>Выполнить</a>
       </div>
     </div>
   </div>
