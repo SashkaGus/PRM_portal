@@ -1,5 +1,5 @@
 import { WFMComponent, router, _ } from 'framework'
-import { http } from '../../framework/tools/http'
+
 class HomePageComponent extends WFMComponent {
   constructor(config) {
     super(config)
@@ -14,7 +14,8 @@ class HomePageComponent extends WFMComponent {
   events() {
     return {
       'click .btn_upload': 'goToUpload',
-      'click .btn_tabs': 'goToTabs'
+      'click .btn_tabs': 'goToTabs',
+      'click .btn_BZ': 'goToBZStat'
     }
   }
   
@@ -24,10 +25,16 @@ goToUpload(){
 }
 
 
-  goToTabs() {
+goToTabs() {
     event.preventDefault()
     router.navigate('tabs')
   }
+
+  goToBZStat(){
+    event.preventDefault()
+    router.navigate('**')
+  }
+
 }
 
 export const homePageComponent = new HomePageComponent({
@@ -65,7 +72,7 @@ export const homePageComponent = new HomePageComponent({
       <p>Переход на страницу со статусами БЗ</p>
     </div>
     <div class="card-action">
-    <a class="waves-effect waves-light btn_delete"><i class="material-icons left">book</i>Перейти</a>
+    <a class="waves-effect waves-light btn_BZ"><i class="material-icons left">book</i>Перейти</a>
   </div>
   </div>
 </div>

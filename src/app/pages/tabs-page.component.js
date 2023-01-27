@@ -1,4 +1,5 @@
 import { WFMComponent, $ } from 'framework'
+import { http } from '../../framework/tools/http'
 
 class TabsPageComponent extends WFMComponent {
   constructor(config) {
@@ -9,6 +10,7 @@ class TabsPageComponent extends WFMComponent {
     return {
       'click .collapsible': 'onTabClick',
       'click .btn_delete': 'resDelete',
+      'click .btn_remark': 'dlrRemark'
     }
   }
   
@@ -20,19 +22,20 @@ class TabsPageComponent extends WFMComponent {
     $target.parent().addClass('active')
   }
 
-  // dlrRemark() {
-  //   // http.get('/prm_admin_portal/rest/database/getAll').then(data => console.log(data))
-  //   http.get(`/prm_admin_portal/rest/database/getOne?id=${client_id.value}`).then(data => console.log(data))
-  // }
+  dlrRemark() {
+    // http.get('https://jsonplaceholder.typicode.com/users').then(data => console.log(data))
+    // http.get('/prm_admin_portal/rest/database/getAll').then(data => console.log(data))
+    http.get(`/prm_admin_portal/rest/database/getOne?id=${client_id.value}`).then(data => console.log(data))
+  }
 
 
   
-  // resDelete() {
-  //   // const body = {client: client_id.value,
-  //   //               dealer: dealer_id.value}
-  //   http.get(`/prm_admin_portal/rest/database/save?name=${dealer_id.value}&surname=${schema_id.value}`).then(data => console.log(data))
-  //   // http.post('https://jsonplaceholder.typicode.com/users', body).then(data => console.log(body))
-  // }
+  resDelete() {
+    // const body = {client: client_id.value,
+    //               dealer: dealer_id.value}
+    http.get(`/prm_admin_portal/rest/database/save?name=${dealer_id.value}&surname=${schema_id.value}`).then(data => console.log(data))
+    // http.get('https://jsonplaceholder.typicode.com/users').then(data => console.log(data))
+  }
 }
 
 export const tabsPageComponent = new TabsPageComponent({
@@ -42,30 +45,40 @@ export const tabsPageComponent = new TabsPageComponent({
       <div class="col s6 offset-s3">
         <ul class="collapsible popout collapsible-accordion">
           <li class="js-tab">
-            <div class="collapsible-header"><i class="material-icons">bookmark</i>Смена маркера дилера по регистрации</div>
+            <div class="collapsible-header">
+            <i class="material-icons">bookmark</i>
+            <i class="material-icons right">info_outline</i>
+            Смена маркера дилера по регистрации</div>
             <div class="collapsible-body">
+            <p>Для изменения маркера введите ID дилера в PRM (bis_delr_id) и список MSISDN через запятую 
+              в формате: 123456, 123456, ...
+               </p>
               <input placeholder="ID клиента" id="client_id" type="text" class="validate">
               <input placeholder="ID дилера" id="dealer_id" type="text" class="validate">
               <div class="card-action">
-              <a class="waves-effect waves-light btn_remark"><i class="material-icons left">book</i>Выполнить</a>
+              <a class="waves-effect waves-light btn_remark">
+                <i class="material-icons left">book</i>
+              Выполнить</a>
               </div>
             </div>
  
           </li>
           <li class="js-tab">
-            <div class="collapsible-header"><i class="material-icons">bookmark</i>Удаление расчётов по дилеру</div>
+            <div class="collapsible-header">
+            <i class="material-icons">bookmark</i>
+            <i class="material-icons right">info_outline</i>
+            Удаление расчётов по дилеру</div>
             <div class="collapsible-body"> 
+            <p>Для удаления расчётов введите ID дилера в PRM (bis_delr_id),
+               период, за который необходимо удалить расчёты и филиал (MO, KV, NW ...). Поле ID схемы не обязательно к заполнению, если нужно удалить все расчёты по партнёру</p>
               <input placeholder="ID дилера" id="dealer_id" type="text" class="validate">
-              <input placeholder="ID схемы" id="schema_id" type="text" class="validate">
               <input placeholder="Период (YYYYMM-YYYYMM)" id="mnth_id" type="text" class="validate">
+              <input placeholder="Код филиала" id="fll_code" type="text" class="validate">
+              <input placeholder="ID схемы" id="schema_id" type="text" class="validate">
                 <div class="card-action">
                   <a class="waves-effect waves-light btn_delete"><i class="material-icons left">archive</i>Выполнить</a>
                 </div>
             </div>
-          </li>
-          <li class="active js-tab">
-            <div class="collapsible-header"><i class="material-icons">bookmark</i>Third</div>
-            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></div>
           </li>
         </ul>
       </div>
