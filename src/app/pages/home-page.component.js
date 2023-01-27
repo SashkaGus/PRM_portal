@@ -5,24 +5,28 @@ class HomePageComponent extends WFMComponent {
     super(config)
 
     this.data = {
-      title: 'Проставить дилера по регистрации',
-      bzTitle: 'Статусы БЗ'
+      title: 'Выгрузки из базы',
+      bzTitle: 'Изменения в базе',
+      delTitle: 'Статусы БЗ'
     }
   }
 
   events() {
     return {
-      'click .waves-effect': 'goToTabs'
+      'click .btn_upload': 'goToUpload',
+      'click .btn_tabs': 'goToTabs'
     }
   }
   
+goToUpload(){
+  event.preventDefault()
+  router.navigate('upload')
+}
+
+
   goToTabs() {
-    const body = {title: 'Проставить дилера по регистрации',
-    bzTitle: 'Статусы БЗ'}
-    // event.preventDefault()
-    // router.navigate('tabs')
-    //http.get('https://jsonplaceholder.typicode.com/todos/1')
-    http.post('https://jsonplaceholder.typicode.com/todos/1').then(data => console.log(data))
+    event.preventDefault()
+    router.navigate('tabs')
   }
 }
 
@@ -34,11 +38,10 @@ export const homePageComponent = new HomePageComponent({
     <div class="card blue-grey darken-1">
       <div class="card-content white-text">
         <span class="card-title">{{ title }}</span>
-        <input placeholder="ID клиента" id="client_id" type="text" class="validate">
-        <input placeholder="ID дилера" id="dealer_id" type="text" class="validate">
+        <p>Переход на страницу со скриптами для выгрузок из базы</p>
       </div>
       <div class="card-action">
-        <a class="waves-effect waves-light btn"><i class="material-icons left">book</i>Выполнить</a>
+        <a class="waves-effect waves-light btn_upload"><i class="material-icons left">book</i>Перейти</a>
       </div>
     </div>
   </div>
@@ -47,11 +50,23 @@ export const homePageComponent = new HomePageComponent({
   <div class="card blue-grey darken-1">
     <div class="card-content white-text">
       <span class="card-title">{{ bzTitle }}</span>
-      <p>Ссылка на страницу со статусами БЗ</p>
+      <p>Переход на страницу со скриптами для внесения изменений в базу</p>
     </div>
     <div class="card-action">
-      <a href="#not_exist" class="js-link">Перейти</a>
+    <a class="waves-effect waves-light btn_tabs"><i class="material-icons left">book</i>Перейти</a>
+  </div>
+  </div>
+</div>
+
+<div class="col s9 m3" style="margin-top: 40px">
+  <div class="card blue-grey darken-1">
+    <div class="card-content white-text">
+      <span class="card-title">{{ delTitle }}</span>
+      <p>Переход на страницу со статусами БЗ</p>
     </div>
+    <div class="card-action">
+    <a class="waves-effect waves-light btn_delete"><i class="material-icons left">book</i>Перейти</a>
+  </div>
   </div>
 </div>
   `,
