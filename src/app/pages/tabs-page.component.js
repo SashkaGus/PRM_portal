@@ -4,6 +4,11 @@ import { http } from '../../framework/tools/http'
 class TabsPageComponent extends WFMComponent {
   constructor(config) {
     super(config)
+
+    this.data = {
+      remarkInf: "Для изменения маркера введите ID дилера в PRM (bis_delr_id) и список MSISDN через запятую в формате: 123456, 123456, ...",
+      resDeleteInf: "Для удаления расчётов введите ID дилера в PRM (bis_delr_id), период, за который необходимо удалить расчёты и филиал (MO, KV, NW ...). Поле ID схемы не обязательно к заполнению, если нужно удалить все расчёты по партнёру"
+    }
   }
 
   events() {
@@ -35,19 +40,6 @@ class TabsPageComponent extends WFMComponent {
     http.get(`/prm_admin_portal/rest/database/save?name=${dealer_id.value}&surname=${schema_id.value}`).then(data => console.log(data))
     // http.get('https://jsonplaceholder.typicode.com/users').then(data => console.log(data))
   }
-  myFunction() {
-    var popIcon = document.getElementById("remInfo")
-    var coord_top = popIcon.offsetTop
-    var coord_left = popIcon.offsetLeft
-    console.log(coord_top, coord_left)
-    var popup = document.getElementById("myPopup");
-    console.log(popup.style)
-
-    popup.style.overflowX = 300 + "px";
-    popup.style.overflowY = coord_top + "px";
-    popup.classList.toggle("show");
-    console.log(popup.style.left, popup.style.top)
-  }
 }
 
 
@@ -62,15 +54,12 @@ export const tabsPageComponent = new TabsPageComponent({
       <li class="js-tab">
         <div class="collapsible-header">
         <i class="material-icons">bookmark</i>
-        <p data-tooltip="Невероятно полезная подсказка 1">
+        <p data-tooltip="{{ remarkInf }}">
         <i class="material-icons right" id="remInfo">info_outline</i> 
         </p>
                    
         Смена маркера дилера по регистрации</div>
         <div class="collapsible-body">
-        <p>Для изменения маркера введите ID дилера в PRM (bis_delr_id) и список MSISDN через запятую 
-          в формате: 123456, 123456, ...
-           </p>
           <input placeholder="ID клиента" id="client_id" type="text" class="validate">
           <input placeholder="ID дилера" id="dealer_id" type="text" class="validate">
           <div class="card-action">
@@ -84,13 +73,11 @@ export const tabsPageComponent = new TabsPageComponent({
       <li class="js-tab">
         <div class="collapsible-header">
         <i class="material-icons">bookmark</i>
-        <p data-tooltip="Невероятно полезная подсказка 2">
+        <p data-tooltip="{{ resDeleteInf }}">
         <i class="material-icons right">info_outline</i>
         </p>
         Удаление расчётов по дилеру</div>
         <div class="collapsible-body"> 
-        <p>Для удаления расчётов введите ID дилера в PRM (bis_delr_id),
-           период, за который необходимо удалить расчёты и филиал (MO, KV, NW ...). Поле ID схемы не обязательно к заполнению, если нужно удалить все расчёты по партнёру</p>
           <input placeholder="ID дилера" id="dealer_id" type="text" class="validate">
           <input placeholder="Период (YYYYMM-YYYYMM)" id="mnth_id" type="text" class="validate">
           <input placeholder="Код филиала" id="fll_code" type="text" class="validate">
@@ -112,7 +99,6 @@ export const tabsPageComponent = new TabsPageComponent({
       display: block;
     }
 
-
     [data-tooltip] {
       position: relative;                           /* Относительное позиционирование */ 
      }
@@ -129,6 +115,8 @@ export const tabsPageComponent = new TabsPageComponent({
       opacity: 0;                                   /* Подсказка невидима */
       transition: 1s;                               /* Время появления подсказки */
       border-radius: 6px;                           /* Скругление углов подсказки */
+      font-size: 1.5 rem;
+      font-weight: 400
      } 
      [data-tooltip]:hover::after {
       opacity: 1;                                   /* Показываем подсказку */
