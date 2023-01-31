@@ -36,8 +36,17 @@ class TabsPageComponent extends WFMComponent {
     // http.get('https://jsonplaceholder.typicode.com/users').then(data => console.log(data))
   }
   myFunction() {
+    var popIcon = document.getElementById("remInfo")
+    var coord_top = popIcon.offsetTop
+    var coord_left = popIcon.offsetLeft
+    console.log(coord_top, coord_left)
     var popup = document.getElementById("myPopup");
+    console.log(popup.style)
+
+    popup.style.overflowX = 300 + "px";
+    popup.style.overflowY = coord_top + "px";
     popup.classList.toggle("show");
+    console.log(popup.style.left, popup.style.top)
   }
 }
 
@@ -53,8 +62,10 @@ export const tabsPageComponent = new TabsPageComponent({
       <li class="js-tab">
         <div class="collapsible-header">
         <i class="material-icons">bookmark</i>
+        <p data-tooltip="Всплывающая подсказка сообщает о чём-то многозначном и полезном...">
         <i class="material-icons right popup" id="remInfo">info_outline</i> 
-        <div class="popup"><span class="popuptext" id="myPopup">A Simple Popup!</span></div>           
+        </p>
+                   
         Смена маркера дилера по регистрации</div>
         <div class="collapsible-body">
         <p>Для изменения маркера введите ID дилера в PRM (bis_delr_id) и список MSISDN через запятую 
@@ -100,62 +111,26 @@ export const tabsPageComponent = new TabsPageComponent({
     }
 
 
-    /* Popup container - can be anything you want */
-.popup {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* The actual popup */
-.popup .popuptext {
-  visibility: hidden;
-  width: 160px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -80px;
-}
-
-/* Popup arrow */
-.popup .popuptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
-
-/* Toggle this class - hide and show the popup */
-.popup .show {
-  visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s;
-}
-
-/* Add animation (fade in the popup) */
-@-webkit-keyframes fadeIn {
-  from {opacity: 0;} 
-  to {opacity: 1;}
-}
-
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity:1 ;}
-}
+    [data-tooltip] {
+      position: relative;                           /* Относительное позиционирование */ 
+     }
+     [data-tooltip]::after {
+      content: attr(data-tooltip);                  /* Выводим текст */
+      position: absolute;                           /* Абсолютное позиционирование */
+      width: 300px;                                 /* Ширина подсказки */
+      left: 0; top: 0;                              /* Положение подсказки */
+      background: #3989c9;                          /* Синий цвет фона */
+      color: #fff;                                  /* Цвет текста */
+      padding: 0.5em;                               /* Поля вокруг текста */
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);   /* Параметры тени */
+      pointer-events: none;                         /* Подсказка */
+      opacity: 0;                                   /* Подсказка невидима */
+      transition: 1s;                               /* Время появления подсказки */
+     } 
+     [data-tooltip]:hover::after {
+      opacity: 1; /* Показываем подсказку */
+      top: 2em; /* Положение подсказки */
+     }
 
   `
 })
