@@ -62,8 +62,8 @@ export const tabsPageComponent = new TabsPageComponent({
       <li class="js-tab">
         <div class="collapsible-header">
         <i class="material-icons">bookmark</i>
-        <p data-tooltip="Всплывающая подсказка сообщает о чём-то многозначном и полезном...">
-        <i class="material-icons right popup" id="remInfo">info_outline</i> 
+        <p data-tooltip="Невероятно полезная подсказка 1">
+        <i class="material-icons right" id="remInfo">info_outline</i> 
         </p>
                    
         Смена маркера дилера по регистрации</div>
@@ -84,7 +84,9 @@ export const tabsPageComponent = new TabsPageComponent({
       <li class="js-tab">
         <div class="collapsible-header">
         <i class="material-icons">bookmark</i>
+        <p data-tooltip="Невероятно полезная подсказка 2">
         <i class="material-icons right">info_outline</i>
+        </p>
         Удаление расчётов по дилеру</div>
         <div class="collapsible-body"> 
         <p>Для удаления расчётов введите ID дилера в PRM (bis_delr_id),
@@ -118,7 +120,7 @@ export const tabsPageComponent = new TabsPageComponent({
       content: attr(data-tooltip);                  /* Выводим текст */
       position: absolute;                           /* Абсолютное позиционирование */
       width: 300px;                                 /* Ширина подсказки */
-      left: 0; top: 0;                              /* Положение подсказки */
+      left: 105%; top: -5px;                        /* Положение подсказки */
       background: #3989c9;                          /* Синий цвет фона */
       color: #fff;                                  /* Цвет текста */
       padding: 0.5em;                               /* Поля вокруг текста */
@@ -126,10 +128,11 @@ export const tabsPageComponent = new TabsPageComponent({
       pointer-events: none;                         /* Подсказка */
       opacity: 0;                                   /* Подсказка невидима */
       transition: 1s;                               /* Время появления подсказки */
+      border-radius: 6px;                           /* Скругление углов подсказки */
      } 
      [data-tooltip]:hover::after {
-      opacity: 1; /* Показываем подсказку */
-      top: 2em; /* Положение подсказки */
+      opacity: 1;                                   /* Показываем подсказку */
+      top: 2em;                                     /* Положение подсказки */
      }
 
   `

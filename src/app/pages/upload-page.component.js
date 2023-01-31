@@ -27,7 +27,12 @@ export const uploadPageComponent = new UploadPageComponent({
       <div class="col s6 offset-s3">
         <ul class="collapsible popout collapsible-accordion">
           <li class="js-tab">
-            <div class="collapsible-header"><i class="material-icons">bookmark</i>Отчет по составу сценариев </div>
+            <div class="collapsible-header"><i class="material-icons">bookmark</i>
+            <p data-tooltip="Невероятно полезная подсказка 1">
+            <i class="material-icons right">info_outline</i>
+            </p>
+            Отчет по составу сценариев
+             </div>
             <div class="collapsible-body">
               <input placeholder="Филиалы (MO, KV, NW ...)" id="fll_id" type="text" class="validate">
             <div class="card-action">
@@ -37,7 +42,12 @@ export const uploadPageComponent = new UploadPageComponent({
  
           </li>
           <li class="js-tab">
-            <div class="collapsible-header"><i class="material-icons">bookmark</i>Отчёт по выкладке документов на ДП</div>
+            <div class="collapsible-header"><i class="material-icons">bookmark</i>
+            <p data-tooltip="Невероятно полезная подсказка 2">
+                <i class="material-icons right">info_outline</i>
+            </p>
+            Отчёт по выкладке документов на ДП
+            </div>
             <div class="collapsible-body"> 
               <input placeholder="Дата выкладки (DD-MM-YYYY)" id="dwnld_date" type="text" class="validate">
               <input placeholder="Отчётный период (YYYYMM)" id="report_date" type="text" class="validate">
@@ -55,5 +65,28 @@ export const uploadPageComponent = new UploadPageComponent({
     .collapsible li.active .collapsible-body {
       display: block;
     }
+
+    [data-tooltip] {
+        position: relative;                           /* Относительное позиционирование */ 
+       }
+       [data-tooltip]::after {
+        content: attr(data-tooltip);                  /* Выводим текст */
+        position: absolute;                           /* Абсолютное позиционирование */
+        width: 300px;                                 /* Ширина подсказки */
+        left: 105%; top: -5px;                        /* Положение подсказки */
+        background: #3989c9;                          /* Синий цвет фона */
+        color: #fff;                                  /* Цвет текста */
+        padding: 0.5em;                               /* Поля вокруг текста */
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);   /* Параметры тени */
+        pointer-events: none;                         /* Подсказка */
+        opacity: 0;                                   /* Подсказка невидима */
+        transition: 1s;                               /* Время появления подсказки */
+        border-radius: 6px;                           /* Скругление углов подсказки */
+       } 
+       [data-tooltip]:hover::after {
+        opacity: 1;                                   /* Показываем подсказку */
+        top: 2em;                                     /* Положение подсказки */
+       }
+  
   `
 })
