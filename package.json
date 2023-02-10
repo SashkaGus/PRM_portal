@@ -16,6 +16,7 @@
     "webpack-dev-server": "^2.5.1"
   },
   "dependencies": {
-    "materialize-css": "^0.99.0"
+    "materialize-css": "^0.99.0",
+    "xlsx": "^0.18.5"
   }
 }

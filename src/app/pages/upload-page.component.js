@@ -1,4 +1,5 @@
 import { WFMComponent, $ } from 'framework'
+import { http } from '../../framework/tools/http'
 
 class UploadPageComponent extends WFMComponent {
   constructor(config) {
@@ -7,9 +8,24 @@ class UploadPageComponent extends WFMComponent {
 
   events() {
     return {
-      'click .collapsible': 'onTabClick'
+      'click .collapsible': 'onTabClick',
+      'click .btn_upload_scenario_rpt': 'uploadScenRpt'
     }
   }
+
+  uploadScenRpt() {
+    const person = http.get('https://jsonplaceholder.typicode.com/users/1').then(data => {return data}) //xlsx(data, settings, callback)
+    const dwnExcel = async () => {
+      var xlsx = require('xlsx')
+      const pers = await person
+      const workBook = xlsx.utils.book_new()
+      const workSheet = xlsx.utils.json_to_sheet([pers])
+      xlsx.utils.book_append_sheet(workBook, workSheet)
+      xlsx.writeFile(workBook, "convJSON.xlsx")
+    }
+    dwnExcel();
+  }
+
   
   onTabClick({target}) {
     let $target = $(target)
@@ -36,7 +52,10 @@ export const uploadPageComponent = new UploadPageComponent({
             <div class="collapsible-body">
               <input placeholder="Филиалы (MO, KV, NW ...)" id="fll_id" type="text" class="validate">
             <div class="card-action">
-              <a class="waves-effect waves-light btn_remark"><i class="material-icons left">book</i>Выполнить</a>
+              <a class="waves-effect waves-light btn_upload_scenario_rpt"><i class="material-icons left">archive</i>Загрузить</a>
+            </div>
+            <div class="card-action">
+              <a class="waves-effect waves-light btn_open_scenario_rpt"><i class="material-icons left">search</i>Открыть на странице</a>
             </div>
             </div>
  

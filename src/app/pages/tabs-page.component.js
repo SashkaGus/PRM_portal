@@ -1,4 +1,5 @@
 import { WFMComponent, $ } from 'framework'
+// import xlsx from "xlsx"
 import { http } from '../../framework/tools/http'
 
 class TabsPageComponent extends WFMComponent {
@@ -29,9 +30,8 @@ class TabsPageComponent extends WFMComponent {
   }
 
   dlrRemark() {
-    // http.get('https://jsonplaceholder.typicode.com/users').then(data => console.log(data))
-    // http.get('/prm_admin_portal/rest/database/getAll').then(data => console.log(data))
-    http.get(`/prm_admin_portal/rest/database/getOne?id=${client_id.value}`).then(data => console.log(data))
+    http.get('/prm_admin_portal/rest/database/getAll').then(data => console.log(data))
+    // http.get(`/prm_admin_portal/rest/database/getOne?id=${client_id.value}`).then(data => console.log(data))
   }
 
   resDelete() {
