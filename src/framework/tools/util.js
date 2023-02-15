@@ -29,7 +29,13 @@ const _ = {
       params += `${k}=${obj[k]}&`
     })
     return params.substring(0, params.length - 1)
+  },
+
+  checkParams(param) {
+    const noAlphaNumericCharRegex = /[^a-zA-Z\d\s:]/gi
+    return noAlphaNumericCharRegex.test(param) 
   }
+
 }
 
 export { _ }

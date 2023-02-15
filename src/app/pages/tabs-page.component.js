@@ -1,6 +1,6 @@
 import { WFMComponent, $ } from 'framework'
-// import xlsx from "xlsx"
 import { http } from '../../framework/tools/http'
+import { _ } from '../../framework/tools/util'
 
 class TabsPageComponent extends WFMComponent {
   constructor(config) {
@@ -30,15 +30,20 @@ class TabsPageComponent extends WFMComponent {
   }
 
   dlrRemark() {
-    http.get('/prm_admin_portal/rest/database/getAll').then(data => console.log(data))
-    // http.get(`/prm_admin_portal/rest/database/getOne?id=${client_id.value}`).then(data => console.log(data))
+    if ((_.checkParams(client_id.value)) || (_.checkParams(dealer_mark_id.value))) {
+      alert('Введены недопустимые символы')
+    } else {
+      http.get(`/prm_admin_portal/rest/database/getOne?id=${client_id.value}`).then(data => console.log(data))}
+    // http.get('/prm_admin_portal/rest/database/getAll').then(data => console.log(data))
+    // console.log(client_id.value)
   }
 
   resDelete() {
-    // const body = {client: client_id.value,
-    //               dealer: dealer_id.value}
-    http.get(`/prm_admin_portal/rest/database/save?name=${dealer_id.value}&surname=${schema_id.value}`).then(data => console.log(data))
-    // http.get('https://jsonplaceholder.typicode.com/users').then(data => console.log(data))
+    if ((_.checkParams(dealer_id.value)) || (_.checkParams(schema_id.value))) {
+      alert('Введены недопустимые символы')
+    } else {
+      http.get('https://jsonplaceholder.typicode.com/users').then(data => console.log(data))
+    }
   }
 }
 
@@ -61,7 +66,7 @@ export const tabsPageComponent = new TabsPageComponent({
         Смена маркера дилера по регистрации</div>
         <div class="collapsible-body">
           <input placeholder="ID клиента" id="client_id" type="text" class="validate">
-          <input placeholder="ID дилера" id="dealer_id" type="text" class="validate">
+          <input placeholder="ID дилера" id="dealer_mark_id" type="text" class="validate">
           <div class="card-action">
           <a class="waves-effect waves-light btn_remark">
             <i class="material-icons left">book</i>

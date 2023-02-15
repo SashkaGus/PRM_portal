@@ -20,8 +20,8 @@ class HomePageComponent extends WFMComponent {
   }
   
 goToUpload(){
-  event.preventDefault()
-  router.navigate('upload')
+    event.preventDefault()
+    router.navigate('upload')
 }
 
 
@@ -30,7 +30,7 @@ goToTabs() {
     router.navigate('tabs')
   }
 
-  goToBZStat(){
+goToBZStat(){
     event.preventDefault()
     router.navigate('**')
   }

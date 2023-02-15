@@ -1,30 +1,56 @@
 import { WFMComponent, $ } from 'framework'
 import { http } from '../../framework/tools/http'
+import { _ } from '../../framework/tools/util'
 
 class UploadPageComponent extends WFMComponent {
   constructor(config) {
     super(config)
+
+    this.data = {
+      uploadScenInf: "Введите филиалы через запятую в формате MO, KV, CN, ...",
+      resDeleteInf: "Для удаления расчётов введите ID дилера в PRM (bis_delr_id), период, за который необходимо удалить расчёты и филиал (MO, KV, NW ...). Поле ID схемы не обязательно к заполнению, если нужно удалить все расчёты по партнёру"
+    }
   }
 
   events() {
     return {
       'click .collapsible': 'onTabClick',
-      'click .btn_upload_scenario_rpt': 'uploadScenRpt'
+      'click .btn_upload_scenario_rpt': 'uploadScenRpt',
+      'click .btn_open_scenario_rpt': 'openScenRpt'
     }
   }
 
-  uploadScenRpt() {
-    const person = http.get('https://jsonplaceholder.typicode.com/users/1').then(data => {return data}) //xlsx(data, settings, callback)
-    const dwnExcel = async () => {
+  // метод загрузки данных из JSON в xlsx
+  uploadScenRpt() { 
+    const dwnExcel = async (person) => {
       var xlsx = require('xlsx')
       const pers = await person
       const workBook = xlsx.utils.book_new()
-      const workSheet = xlsx.utils.json_to_sheet([pers])
+      const workSheet = xlsx.utils.json_to_sheet(pers) // внимательно передаём параметры, возможно нужно добавить []
       xlsx.utils.book_append_sheet(workBook, workSheet)
       xlsx.writeFile(workBook, "convJSON.xlsx")
     }
-    dwnExcel();
+    if ((_.checkParams(fll_id.value))) {
+      alert('Введены недопустимые символы')
+    } else {
+      const person = http.get('https://jsonplaceholder.typicode.com/users/').then(data => {return data})
+      dwnExcel(person);
+    }
+
   }
+
+  openScenRpt() {
+    const openScen = async (person) => {
+      const pers = await person
+      console.log(pers)
+    }
+    if ((_.checkParams(fll_id.value))) {
+      alert('Введены недопустимые символы')
+    } else {
+      const person = http.get('https://jsonplaceholder.typicode.com/users/').then(data => {return data})
+      openScen(person);
+      }
+    }
 
   
   onTabClick({target}) {
@@ -44,13 +70,13 @@ export const uploadPageComponent = new UploadPageComponent({
         <ul class="collapsible popout collapsible-accordion">
           <li class="js-tab">
             <div class="collapsible-header"><i class="material-icons">bookmark</i>
-            <p data-tooltip="Невероятно полезная подсказка 1">
+            <p data-tooltip="{{ uploadScenInf }}">
             <i class="material-icons right">info_outline</i>
             </p>
             Отчет по составу сценариев
              </div>
             <div class="collapsible-body">
-              <input placeholder="Филиалы (MO, KV, NW ...)" id="fll_id" type="text" class="validate">
+              <input placeholder="MO, KV, NW ..." id="fll_id" type="text" class="validate">
             <div class="card-action">
               <a class="waves-effect waves-light btn_upload_scenario_rpt"><i class="material-icons left">archive</i>Загрузить</a>
             </div>
